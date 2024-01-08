@@ -2,6 +2,7 @@
 import React, { useEffect } from 'react'
 import { useStoreActions, useStoreState } from './store/hooks'
 import { PokemonModel } from './store/models';
+import { useStoreRehydrated } from 'easy-peasy';
 
 const App = () => {
   // let {counter} = useStoreState<CounterModel>(state => state.data) // to not keep doing this again and again, we use hooks
@@ -9,18 +10,22 @@ const App = () => {
   let {add, subtract, customOperation} = useStoreActions(actions => actions.counter)
   let {pokemons} = useStoreState(state => state.pokemon)
   let {getPokemons} = useStoreActions(actions => actions.pokemon)
-  // useEffect(() => {
-  //   console.log(pokemonsArr)
-  // }, [pokemonsArr])
+  let isRehydrated = useStoreRehydrated() //rehydrated will tell us if store is persisted (retrieved from session storage)
   return (
     <div>
     {/* <div>{counter}</div>
     <button onClick={() => customOperation(1)}>INC</button>
     <button onClick={() => subtract(1)}>DEC</button> */}
     <button onClick={() => getPokemons()}>getPOKEMONS</button>
+    
+    {isRehydrated
+    ?
     <ul>
       {pokemons.map((pokemon: PokemonModel, idx) => (<li key={idx}>{pokemon.name}</li>))}
     </ul>
+    : 
+    <h1>Loading...</h1>
+    } 
     </div>
   )
 }
