@@ -11,5 +11,8 @@ export const pokemonModel: PokemonListModel = {
     getPokemons: thunk(async(actions) => {
         let data = await axios.get(url)
         actions.setPokemons(data.data.results)
+    }),
+    unsetPokemons: action((state) => {
+        state.pokemons = [] // simple this is enough
     })
 }

@@ -22,7 +22,8 @@ export interface PokemonModel {
 export interface PokemonListModel{
     pokemons: PokemonModel[],
     setPokemons: Action<PokemonListModel, PokemonModel[]>,
-    getPokemons: Thunk<PokemonListModel, PokemonModel[] | undefined>
+    getPokemons: Thunk<PokemonListModel, PokemonModel[] | undefined>,
+    unsetPokemons: Action<PokemonListModel, PokemonModel[] | undefined>
 }
 
 export interface StoreModel{
